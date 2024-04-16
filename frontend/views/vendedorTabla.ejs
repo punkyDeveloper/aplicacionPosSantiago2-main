@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendedor</title>
+    
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.css" />
+        <!--data table-->
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.5/css/jquery.dataTables.min.css">
+</head>
+<body>
+    
+    
+    <%- include('parciales/navAdmin')%>
+
+    
+    <h1 class="h1">Registrar vendedor</h1>
+    <form action="agregar" method="POST" class="m-5">
+        <div class="form-row col-md-6">
+          <div class="form-group col-md-6">
+            <label for="correo">correo</label>
+            <input type="email" class="form-control" id="correo" name="correo" placeholder="correo">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="contraseña">contraseña</label>
+            <input type="password" class="form-control" id="contraseña" name="contraseña" placeholder="contraseña">
+          </div>
+        </div>
+        <div class="form-row col-md-6"> 
+        <div class="form-group col-md-6">
+          <label for="nombre">nombre</label>
+          <input type="text" class="form-control" id="nombre" name="nombre" placeholder="nombre">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="apellido">apellido</label>
+          <input type="text" class="form-control" id="apellido" name="apellido" placeholder="apellido">
+        </div>
+        </div>
+        <div class="form-row col-md-6">
+          <div class="form-group col-md-6">
+            <label for="cedula">cedula</label>
+            <input type="text" class="form-control" id="id" name="id" placeholder="cedula">
+          </div>
+        </div>
+
+            <input type="submit" class="btn btn-dark" value="registrar">
+        
+      </form>
+
+  
+<h2 class="h2">Datos vendedor</h2>
+	<table class="table" id="vendedorTabla">
+		<thead class="thead-dark">
+		  <tr>
+            <th scope="col">id</th>
+			<th scope="col">correo</th>
+			<th scope="col">nombre</th>
+			<th scope="col">apellido</th>
+			<th scope="col">contraseña</th>
+			<th scope="col">editar</th>
+            <th scope="col">eliminar</th>
+
+		  </tr>
+		</thead>
+
+
+
+		<tbody>
+           <% productos.forEach(function(elemento) { %>
+		  <tr>
+			<th scope="row"><%=elemento._id%></th>
+            <td><%= elemento.correo %></td>
+			<td><%= elemento.nombre %></td>
+			<td><%= elemento.apellido %></td>
+			<td><%= elemento.contraseña %></td>
+            <td><button data-toggle="modal" data-target="#editar" class="btn btn-dark"
+                onclick="actualizarVendedor('<%= elemento._id %>','<%= elemento.correo%>','<%= elemento.nombre %>',
+                '<%= elemento.apellido %>','<%= elemento.contraseña %>')" >editar</button></td>
+            <td><button data-toggle="modal" data-target="#eliminar" class="btn btn-danger"
+                onclick="eliminarVendedor('<%= elemento._id %>')" >eliminar</button></td>
+		  </tr>
+		  
+          <% }) %>
+		</tbody>
+	  </table>
+      <div class="" id="paginador"></div>
+	
+
+
+<!-- modal de editar -->
+<div class="modal" id="editar">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">actualizar</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form id="editarVen" method="POST">
+                <div>
+                  <label for="id" class="form-label">id</label>
+                  <input  class="form-control" id="_id" name="id" disabled>
+                </div>
+                <div class="mb-3">
+                  <label for="cVendedor" class="form-label">correo</label>
+                  <input type="email" class="form-control" id="cVendedor" name="cVendedor">
+                </div>
+                <div class="mb-3">
+                  <label for="nVendedor" class="form-label">nombre</label>
+                  <input type="text" class="form-control" id="nVendedor" name="nVendedor">
+                </div>
+                <div class="mb-3">
+                  <label for="aVendedor" class="form-label">apellido</label>
+                  <input type="text" class="form-control" id="aVendedor" name="aVendedor">
+                </div>
+                <div class="mb-3">
+                    <label for="contraseña" class="form-label">contraseña</label>
+                    <input type="text" class="form-control" id="contraVendedor" name="contraseña">
+                  </div>
+                <button type="submit" class="btn btn-dark p-1 mt-5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-vector-pen" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M10.646.646a.5.5 0 0 1 .708 0l4 4a.5.5 0 0 1 0 .708l-1.902 1.902-.829 3.313a1.5 1.5 0 0 1-1.024 1.073L1.254 14.746 4.358 4.4A1.5 1.5 0 0 1 5.43 3.377l3.313-.828L10.646.646zm-1.8 2.908-3.173.793a.5.5 0 0 0-.358.342l-2.57 8.565 8.567-2.57a.5.5 0 0 0 .34-.357l.794-3.174-3.6-3.6z"/>
+                    <path fill-rule="evenodd" d="M2.832 13.228 8 9a1 1 0 1 0-1-1l-4.228 5.168-.026.086.086-.026z"/>
+                  </svg> actualizar
+                </button>
+              </form>
+        </div>
+  
+        <!-- Modal footer -->
+
+  
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- modal eliminar -->
+<div class="modal" id="eliminar">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">eliminar</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body">
+            <form id="elimiminarV" method="POST">
+             
+                <h1>esta seguro</h1>
+  
+                <button type="submit" class="btn btn-dark p-1 mt-5">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+                    <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
+                  </svg>
+                eliminar
+                </button>
+              </form>
+        </div>
+  
+        
+  
+      </div>
+    </div>
+  </div>
+
+
+
+	
+	<a href="/admin/descargar" class="btn btn-primary" >descargar </a>
+	
+	
+	
+	
+	
+  
+		<!--jquery-->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+	    <!--datatable-->
+      <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.js"></script>
+ 	<script>
+        function actualizarVendedor(id,correo,nombre,apellido,contraseña){
+
+           _id.value = id;
+            cVendedor.value = correo;
+            nVendedor.value = nombre;
+            aVendedor.value=apellido;
+            contraVendedor.value=contraseña;
+
+            var form = editarVen;
+             form.setAttribute('action', `/admin/editar/${id}`);
+        }
+
+//eliminar
+        function eliminarVendedor(id){
+
+            var form = elimiminarV;
+            form.setAttribute('action',`/admin/borrar/${id}`);
+        }
+    
+//datatable
+new DataTable('#vendedorTabla', {
+        order: [[3, 'desc']]
+      });
+
+    </script>
+
+<!--boostrap-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+
+
+</body>
+</html>

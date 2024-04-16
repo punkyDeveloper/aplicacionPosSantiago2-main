@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>registro</title>
+    <link rel="stylesheet" href="../static/styles/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    
+</head>
+<body>
+
+<%- include('parciales/nav')%>
+ 
+<div class="row m-auto">
+    <h1 class="h1 m-3 m-auto">REGISTRAR</h1>
+    
+
+
+    <form class="m-5 "  action="/registrar1" method="POST">
+      <div class="form-row">
+      <img src="../static/img/img_registrar1.jpg" alt="" class="col-md-4">
+      <div class="m-4">
+      <div class="form-group col-md-12 ml-auto " >
+        <div class="form-row ">
+          <div class="form-group col-md-6">
+            <label for="inputEmail4">correo</label>
+            <input required type="email" class="form-control" name="correo" id="correo" placeholder="correo@gmail.com"
+            value="<% if(typeof valores != 'undefined') { %><%= valores.email %><%}%>">
+          </div>
+          <div class="form-group col-md-6">
+            <label required for="contraseña">contraseña</label>
+            <input  type="password" class="form-control" name="contraseña" id="contraseña" placeholder="*****"
+            value="<% if(typeof valores != 'undefined') { %><%= valores.contraseña %><%}%>">
+          </div>
+        </div>
+        <div class="form-row ">
+
+        <div class="form-group col-md-6">
+            <label required for="nombre">nombre</label>
+            <input  type="text" class="form-control" name="nombre" id="nombre" placeholder="santiago" 
+            value="<% if(typeof valores != 'undefined') { %><%= valores.nombre %><%}%>">
+          </div>
+          <div class="form-group col-md-6">
+            <label required for="apellido">apellido</label>
+            <input  type="text" class="form-control" name="apellido" id="apellido" placeholder="hernandez"
+            value="<% if(typeof valores != 'undefined') { %><%= valores.apellido %><%}%>">
+          </div>
+        </div>
+        <div class="form-group ">
+          <label required for="cedula">cedula</label>
+          <input  type="number" class="form-control" name="cedula" id="cedula" placeholder="15468454"
+          value="<% if(typeof valores != 'undefined') { %><%= valores.cedula %><%}%>">
+        </div>
+        <div class="form-row"> 
+
+          <div class="form-group col-md-6">
+            <label for="direccion">direccion</label>
+            <input type="text" class="form-control" name="direccion" id="direccion" placeholder="carrera 50#68-9">
+          </div>
+          <div class="form-group col-md-6">
+            <label re for="inputCity">ciudad</label>
+            <input type="text" class="form-control" name="ciudad" id="ciudad" placeholder="itagui">
+          </div>
+            </div>
+             <div class="form-group">
+          <div class="form-check">
+            <input required  name="terminos" class="form-check-input" type="checkbox" id="terminos" value="true">
+            <label class="form-check-label" for="gridCheck"value="<% if(typeof valores != 'undefined') { %><%= valores.terminos %><%}%>">
+              <p data-toggle="modal" data-target="#myModal" ><a ><strong style="color: black;" > terminos y condiciones </strong> </a></p>
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-dark">registrar</button>
+        <a href="/ingresar" >iniciar</a>
+      </div>
+    </div>
+  </div>
+      </form>
+
+      
+    </div>
+
+      <!--modal de terminos y condiciones-->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">terminos y condiciones</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body">
+             <p>¡Bienvenido(a) a nuestra tienda en línea! Antes de utilizar nuestros servicios, te pedimos que leas detenidamente los siguientes Términos y Condiciones, ya que constituyen un acuerdo legal entre tú (en adelante, "el Usuario" o "tú") y nosotros (en adelante, "la Tienda" o "nosotros"). Al acceder o utilizar nuestra tienda en línea, estás aceptando cumplir con estos Términos y Condiciones. Si no estás de acuerdo con alguno de los términos establecidos aquí, te recomendamos que no utilices nuestra plataforma.</p>
+              <ul>
+             <li> <strong> Registro y Cuenta de Usuario :</strong>
+              <p>Para realizar compras en nuestra tienda, es necesario que te registres y crees una cuenta de usuario. Tú eres responsable de proporcionar información precisa y actualizada durante el proceso de registro. Mantén tus credenciales de acceso seguras y no compartas tu cuenta con terceros. Tú eres responsable de todas las actividades realizadas a través de tu cuenta.
+              </p>
+              </li>
+
+             <li> <strong>Uso de la Ubicación :</strong>
+              <p>Nuestra tienda puede utilizar la información de ubicación proporcionada por tu dispositivo con el fin de mejorar tu experiencia de compra y brindarte servicios personalizados. Al utilizar nuestra plataforma, estás otorgando permiso para que accedamos y utilicemos tu ubicación.
+            </p>
+              </li>
+
+              <li><strong> Privacidad y Protección de Datos : </strong>
+              <p>Valoramos tu privacidad y protección de datos. Por favor, consulta nuestra Política de Privacidad para obtener información detallada sobre cómo recopilamos, utilizamos y protegemos tus datos personales.
+            </p>  
+            </li>
+
+            <li><strong>Propiedad Intelectual :</strong>
+              El contenido de nuestra tienda en línea, incluyendo pero no limitado a logotipos, textos, gráficos, imágenes y software, está protegido por derechos de autor y otras leyes de propiedad intelectual. No está permitido copiar, reproducir, modificar, distribuir o utilizar nuestro contenido sin nuestro consentimiento explícito por escrito.
+            </p></li>
+
+            <li><strong>Comunicaciones de Marketing :</strong>
+              Al proporcionar tu dirección de correo electrónico durante el registro, aceptas recibir correos electrónicos promocionales y de marketing por parte de la Tienda. Puedes optar por no recibir estas comunicaciones en cualquier momento, siguiendo las instrucciones de cancelación de suscripción incluidas en los correos electrónicos o contactándonos directamente.
+            </p></li>
+
+            <li><strong>Compras y Pagos :</strong>
+              La Tienda se reserva el derecho de modificar los precios de los productos y servicios en cualquier momento sin previo aviso. El pago de tus compras se realizará a través de los métodos de pago disponibles en nuestra plataforma. Tú eres responsable de proporcionar información de pago precisa y autorizar cualquier transacción realizada.
+            </p></li>
+
+            <li><strong>Envío y Devoluciones :</strong>
+              Los detalles sobre los plazos de envío, costos y opciones de devolución se proporcionarán durante el proceso de compra. Te recomendamos leer nuestra Política de Envío y Devoluciones para obtener información detallada al respecto.
+            </p></li>
+
+            <li><strong>Limitación de Responsabilidad :</strong>
+              La Tienda no será responsable de ningún daño directo, indirecto, incidental, especial o consecuente que resulte del uso o la imposibilidad de utilizar nuestra tienda en línea, incluyendo, pero no limitado a, pérdida de ganancias, interrupción del negocio, virus informáticos u otros problemas técnicos.
+            </p></li>
+
+            <li><strong> Modificaciones y Terminación :</strong>
+              Nos reservamos el derecho de modificar o terminar nuestros servicios, así como de actualizar estos Términos y Condiciones en cualquier momento sin previo aviso. Te recomendamos revisar regularmente esta sección para estar al tanto de cualquier cambio.
+            </p></li>
+          </ul>
+              <p> Si tienes alguna pregunta o inquietud con respecto a estos Términos y Condiciones, por favor contáctanos a través de los canales de comunicación proporcionados en nuestra tienda en línea.
+              
+              Al utilizar nuestra tienda en línea, estás aceptando estos Términos y Condiciones en su totalidad. ¡Gracias por elegir nuestra tienda y disfruta de tu experiencia de compra!</p>
+            
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      
+
+      
+      <%- include('parciales/footer')%>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+
+</body>
+</html>

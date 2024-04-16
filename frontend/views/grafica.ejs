@@ -1,0 +1,58 @@
+
+
+<!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<body onload="imprimirGrafica()">
+
+  <%- include('parciales/navAdmin')%>
+
+<canvas id="myChart" style="width:100%;max-width:600px"></canvas>
+
+<script>
+
+/*var inventario =[{nombre:"nombre"},{stock:"stock"}
+  ]*/
+var xValues =  <%- JSON.stringify(nombres) %>;
+var yValues = <%- JSON.stringify(stocks) %>;
+var barColors = ["red", "green","blue","orange","brown"];
+//generateData("Math.sin(x)", 0, 10, 0.5);
+//sgenerateData();
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: false,
+      pointRadius: 2,
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },    
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "y = sin(x)",
+      fontSize: 16
+    }
+  }
+});
+
+function imprimirGrafica() {
+  console.table('nombres ', <%- JSON.stringify(nombres) %>);
+  console.table('stocks ', <%- JSON.stringify(stocks) %>);
+}
+
+function generateData() {
+    inventario.forEach(function (item) {
+      xValues.push(item.nombre);
+      yValues.push(item.stock);
+    });
+  }
+
+</script>
+
+</body>
+</html>
